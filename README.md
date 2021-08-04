@@ -6,6 +6,7 @@ Todo en un archivo docker-compose con proxy inverso nginx y despliegue de certif
 Debes cambiar:
 
 next.tudominio.com  - por tu dominio real y redirigir DNS a tu servidor.
+
 office.tudominio.com  - por tu dominio real y redirigir DNS a tu servidor.
 
 También puedes (deberías) cambiar el usuario y la contraseña.
