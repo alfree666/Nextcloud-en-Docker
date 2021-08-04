@@ -1,4 +1,5 @@
-version: '2.1'
+version: '3.3'
+
 services:
 
   nginx-proxy:
@@ -7,7 +8,6 @@ services:
     volumes:
       - nginx-proxy-certs:/etc/nginx/certs:ro
       - nginx-proxy-vhost:/etc/nginx/vhost.d
-      - /opt/docker-files/nginx-proxy/network_internal.conf:/etc/nginx/network_internal.conf
       - /usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
     ports:
@@ -15,8 +15,6 @@ services:
       - 443:443
     labels:
       - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
-    networks:
-      cloud-network:
 
   nginx-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion      
@@ -26,8 +24,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     volumes_from:
       - nginx-proxy
-    networks:
-      cloud-network:
 
   ncdb:
     image: mariadb:10.6
@@ -37,10 +33,9 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=user
       - MYSQL_PASSWORD=p4ssw0rd
+    command: --innodb-read-only-compressed=OFF      
     volumes:
       - ncdb-data:/var/lib/mysql
-    networks:
-      cloud-network:
 
   nc:
     image: nextcloud:22.0-apache
@@ -63,8 +58,6 @@ services:
       - LETSENCRYPT_HOST=next.tudominio.com
       - LETSENCRYPT_EMAIL=info@tudominio.com
       - RESOLVE_TO_PROXY_IP=true
-    networks:
-      cloud-network:
           
   office:
     image: collabora/code:6.4.10.5
@@ -85,12 +78,6 @@ services:
       - 9980
     cap_add:
       - MKNOD
-    networks:
-      cloud-network:    
-          
-networks:
-  cloud-network:
-    driver: bridge
           
 volumes:
   nginx-proxy-certs:
