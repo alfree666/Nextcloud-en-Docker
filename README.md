@@ -1,5 +1,6 @@
-# Nextcloud on Docker with Collabora
-Here are the source files for the installation of Nextcloud on Docker with Collabora. 
+# Nextcloud en Docker con Collabora
+Aquí están los archivos fuente para la instalación de Nextcloud en Docker con Collabora.
 
-All in one docker-compose file with nginx reverse proxy and Letsencrypt certificate deployment. 
+Todo en un archivo docker-compose con proxy inverso nginx y despliegue de certificado Letsencrypt.
+
 
